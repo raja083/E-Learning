@@ -12,7 +12,7 @@ import courseProgressRoute from "./src/routes/courseProgressRoute.js"
 connectDB();
 const app = express();
 //default middlewares
-
+const port = process.env.PORT || 4000;
 app.use(express.json());
 app.use(cookieParser());
 app.use(
