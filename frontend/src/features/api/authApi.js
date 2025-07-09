@@ -4,7 +4,7 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 import { userLoggedIn, userLoggedOut } from "../authSlice";
 //userLogged in is the instance or state of the logged in user
 
-const USER_API = "http://localhost:8080/api/user"
+const USER_API = "https://e-learning-backend-lz6k.onrender.com/api/user"
 export const authApi = createApi ({
     reducerPath:"authApi",
     baseQuery:fetchBaseQuery({
