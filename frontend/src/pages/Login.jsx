@@ -20,6 +20,7 @@ import {
 } from "@/features/api/authApi";
 import { toast } from "sonner";
 import { Navigate, useNavigate } from "react-router-dom";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const Login = () => {
   //useState to set the signup and login variables
@@ -28,6 +29,7 @@ const Login = () => {
     name: "",
     email: "",
     password: "",
+    role:""
   });
 
   const [loginInput, setLoginInput] = useState({
@@ -73,7 +75,7 @@ const Login = () => {
       setLoginInput({ ...loginInput, [name]: value });
     }
   };
-
+  
   //get the input data and perform signup and login
   const handleRegistration = async (type) => {
     const inputData = type === "signup" ? signUpInput : loginInput;
@@ -150,6 +152,23 @@ const Login = () => {
                     placeholder="Password"
                     required={true}
                   />
+                </div>
+                <div>
+                  <RadioGroup className="flex gap-10"
+                  value={signUpInput.role}
+                  onValueChange={(value) =>
+                    setSignUpInput((prev) => ({ ...prev, role: value }))
+                  }
+                >
+                  <div className="flex items-center gap-3">
+                    <RadioGroupItem value="Student" id="student" />
+                    <Label htmlFor="student">Student</Label>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <RadioGroupItem value="Instructor" id="instructor" />
+                    <Label htmlFor="instructor">Instructor</Label>
+                  </div>
+                </RadioGroup>
                 </div>
               </CardContent>
               <CardFooter>

@@ -7,10 +7,10 @@ import { deleteMediaFromCloudinary, uploadMedia } from "../utils/cloudinary.js";
 //register controller
 export const register = async(req,res)=>{
     try {
-        const {name,email,password} = req.body;
+        const {name,email,password,role} = req.body;
 
         //check if any field is absent
-        if(!name || !email || !password){
+        if(!name || !email || !password || !role){
             return res.status(400).json({
                 success:false,
                 message:"All fields are required"
@@ -33,7 +33,8 @@ export const register = async(req,res)=>{
         const createdUser=await User.create({
             name,
             email,
-            password:hashedPassword
+            password:hashedPassword,
+            role
         })
 
         return res.status(201).json({
