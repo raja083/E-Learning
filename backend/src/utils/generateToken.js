@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 
 export const generateToken = (res,user,message)=>{
-
     const token = jwt.sign( //user id is saved inside token for future use
         {
             userId:user._id

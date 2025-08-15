@@ -3,8 +3,10 @@ import { Course } from "../models/courseModel.js";
 import { Lecture } from "../models/lectureModel.js";
 import { CoursePurchase } from "../models/coursePurchase.js";
 import { User } from "../models/userModel.js";
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+//stripe first creates a checkout session
 export const createCheckoutSession = async (req, res) => {
   try {
     const userId = req.id;
@@ -25,7 +27,6 @@ export const createCheckoutSession = async (req, res) => {
       status: "pending",
     });
 
-    //create a stripe checkout session
     // Create a Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -104,7 +105,7 @@ export const stripeWebhook = async (req, res) => {
       const purchase = await CoursePurchase.findOne({
         paymentId: session.id,
       }).populate({ path: "courseId" });
-
+      
       if (!purchase) {
         return res.status(404).json({ message: "Purchase not found" });
       }

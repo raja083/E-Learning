@@ -7,7 +7,6 @@ export const ProtectRoute = ({children})=>{
     if(!isAuthenticated){
         return <Navigate to="/login" />
     }
-
     return children;
 }
 

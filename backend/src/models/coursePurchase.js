@@ -19,7 +19,7 @@ const coursePurchaseSchema = new mongoose.Schema({
         enum:["pending","completed","failed"],
         default:"pending"
     },
-    paymentId:{
+    paymentId:{ //returned by stripe
         type:String,
         required:true
     }

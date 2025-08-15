@@ -12,7 +12,7 @@ const isLoggedIn = async (req,res,next) =>{
             })
         }
         //match the token using the secret key
-        const decode = await jwt.verify(token, process.env. TOKEN_SECRET);  //If successful, decode will be an object containing the data you signed in the token (like user ID, email, etc.).
+        const decode = await jwt.verify(token, process.env.TOKEN_SECRET);  //If successful, decode will be an object containing the data you signed in the token (like user ID, email, etc.).
         if(!decode){
              return res.status(401).json({
                 message:"Invalid token",
