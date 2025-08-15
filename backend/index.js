@@ -9,22 +9,29 @@ import cookieParser from "cookie-parser";
 import mediaRoute from "./src/routes/mediaRoute.js"
 import purchaseRoute from "./src/routes/purchaseRoute.js"
 import courseProgressRoute from "./src/routes/courseProgressRoute.js"
+import { stripeWebhook } from "./src/controllers/purchaseController.js";
 import path from "path";
 
 connectDB();
 const app = express();
 //default middlewares
 const port = process.env.PORT || 4000;
-
-const _dirname = path.resolve();
-app.use(express.json());
-app.use(cookieParser());
 app.use(
   cors({
     origin: "https://e-learning-kgkm.onrender.com",
     credentials: true,
   })
 );
+const _dirname = path.resolve();
+app.use(
+  "/api/purchase/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhook
+);
+
+app.use(express.json());
+app.use(cookieParser());
+
 //apis
 app.use("/api/user", userRoute); //if user hits /api/user redirect him to userRoute
 app.use("/api/course",courseRoute);
