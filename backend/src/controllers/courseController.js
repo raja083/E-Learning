@@ -409,9 +409,13 @@ export const getAllPublishedCourse = async (req,res) =>{
 //sending search result
 export const searchCourse = async (req,res) =>{
   try {
-    const {query="" , categories=[], sortByPrice=""} = req.query;
+    const {query="" , categories="", sortByPrice=""} = req.query;
     //create search query 
 
+    let categoryArray = [];
+    if(categories){
+      categoryArray = categories.split(",").map(cat => cat.trim());
+    }
     const searchCriteria = {
       isPublished:true,
       $or:[
@@ -422,8 +426,8 @@ export const searchCourse = async (req,res) =>{
       ]
     }
     //if categories selected
-    if(categories.length > 0){
-      searchCriteria.category = {$in: categories}
+    if(categoryArray.length > 0){
+      searchCriteria.category = {$in: categoryArray}
     }
 
     //define sorting order
