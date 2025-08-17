@@ -86,6 +86,10 @@ function AddCourse() {
                 <SelectItem value="Docker">Docker</SelectItem>
                 <SelectItem value="MongoDB">MongoDB</SelectItem>
                 <SelectItem value="HTML">HTML</SelectItem>
+                <SelectItem value="Artificial Intelligence">Artificial Intelligence</SelectItem>
+                <SelectItem value="Machine Learning">Machine Learning</SelectItem>
+                <SelectItem value="Data Engineering">Data Engineering</SelectItem>
+                <SelectItem value="UI/UX Design">UI/UX Design</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
