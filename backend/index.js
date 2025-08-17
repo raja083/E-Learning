@@ -4,11 +4,11 @@ dotenv.config();
 import connectDB from "./src/db.js";
 import cors from "cors";
 import userRoute from "./src/routes/userRoute.js";
-import courseRoute from "./src/routes/courseRoute.js"
+import courseRoute from "./src/routes/courseRoute.js";
 import cookieParser from "cookie-parser";
-import mediaRoute from "./src/routes/mediaRoute.js"
-import purchaseRoute from "./src/routes/purchaseRoute.js"
-import courseProgressRoute from "./src/routes/courseProgressRoute.js"
+import mediaRoute from "./src/routes/mediaRoute.js";
+import purchaseRoute from "./src/routes/purchaseRoute.js";
+import courseProgressRoute from "./src/routes/courseProgressRoute.js";
 import { stripeWebhook } from "./src/controllers/purchaseController.js";
 import path from "path";
 
@@ -34,17 +34,16 @@ app.use(cookieParser());
 
 //apis
 app.use("/api/user", userRoute); //if user hits /api/user redirect him to userRoute
-app.use("/api/course",courseRoute);
-app.use("/api/media",mediaRoute);  //route to upload video on cloudinary
-app.use("/api/purchase",purchaseRoute);
-app.use("/api/progress",courseProgressRoute);
-
+app.use("/api/course", courseRoute);
+app.use("/api/media", mediaRoute); //route to upload video on cloudinary
+app.use("/api/purchase", purchaseRoute);
+app.use("/api/progress", courseProgressRoute);
 
 //serve frontend files
-app.use(express.static(path.join(_dirname, "/frontend/dist")))
-app.get('/{*any}',(_,res)=>{
-  res.sendFile(path.resolve(_dirname,"frontend","dist","index.html"))
-})
+app.use(express.static(path.join(_dirname, "/frontend/dist")));
+app.get("/{*any}", (_, res) => {
+  res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
+});
 app.listen(process.env.PORT, () => {
   console.log(`Listening at port ${process.env.PORT}`);
 });
