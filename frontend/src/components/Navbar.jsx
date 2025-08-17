@@ -45,7 +45,7 @@ const Navbar = () => {
   useEffect(() => {
     //once the user is logged out redirect to the login page
     if (isSuccess) {
-      toast.success(data.message || "Logged out successfully");
+      toast.success(data?.message || "Logged out successfully");
       navigate("/login");
     }
   }, [isSuccess]);

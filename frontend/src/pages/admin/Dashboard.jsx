@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   if(isLoading) return <h1>Loading...</h1>
   if(isError) return <h1>Failed to get purchased course</h1>
-  console.log(data);
+  //console.log(data);
   
   const {purchasedCourse} = data || [];
   const courseData = purchasedCourse.map((course)=>({

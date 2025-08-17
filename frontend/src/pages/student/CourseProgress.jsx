@@ -44,7 +44,7 @@ const CourseProgress = () => {
 
   //update lecture progress on clicking a lecture
   const handleLectureProgress = async (lectureId) => {
-    console.log(courseId, lectureId);
+    //console.log(courseId, lectureId);
     await updateLectureProgress({ courseId, lectureId });
     refetch();
   };
