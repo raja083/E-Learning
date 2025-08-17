@@ -157,7 +157,6 @@ const CourseTab = () => {
             >
               {courseData?.course.isPublished ? "Unpublish" : "Publish"}
             </Button>
-{/*             <Button variant="destructive">Remove Course</Button> */}
           </div>
         </div>
       </CardHeader>
