@@ -144,12 +144,19 @@ const CourseTab = () => {
             </CardDescription>
           </div>
           <div className="space-x-2">
-            <Button disabled={courseData?.course.lectures.length===0}  variant="outline" onClick={()=>changePublishHandler(courseData?.course.isPublished ? "false" : "true")}  >
-            {
-              courseData?.course.isPublished? "Unpublish" :"Publish"
-            }
+            <Button
+              disabled={courseData?.course.lectures.length === 0}
+              onClick={() =>
+                changePublishHandler(courseData?.course.isPublished ? "false" : "true")
+              }
+              className={
+                courseData?.course.isPublished
+                  ? "bg-red-600 text-white hover:bg-red-700"
+                  : "bg-black text-white hover:bg-gray-900"
+              }
+            >
+              {courseData?.course.isPublished ? "Unpublish" : "Publish"}
             </Button>
-            <Button variant="destructive">Remove Course</Button>
           </div>
         </div>
       </CardHeader>
