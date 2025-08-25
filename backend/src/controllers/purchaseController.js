@@ -189,3 +189,28 @@ export const getAllPurchasedCourse = async (req,res)=>{
     console.log(error)
   }
 }
+
+//get the revenue of the logged in instructor
+// In backend/src/controllers/purchaseController.js
+export const getMySales = async (req, res, next) => {
+  try {
+    const instructorId = req.id;
+    const instructor = await User.findById(instructorId);
+    
+    const instructorCourses = await Course.find({ creator: instructor , isPublished:true });
+
+    const courseIds = instructorCourses.map(course => course._id);
+    
+    // Find all purchases for these courses
+    const sales = await CoursePurchase.find({ courseId: { $in: courseIds }, status:"completed" });
+    
+    // Calculate both the number of sales and the total revenue
+    const totalSales = sales.reduce((sum, sale) => sum + sale.amount, 0);
+    const salesCount = sales.length; // This is the new line
+
+    // Send both pieces of data in the response
+    res.status(200).json({ totalSales, salesCount });
+  } catch (error) {
+    next(error);
+  }
+};

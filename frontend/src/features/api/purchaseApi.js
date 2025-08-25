@@ -30,6 +30,12 @@ export const purchaseApi = createApi({
         method: "GET",
       }),
     }),
+    getRevenue: builder.query({
+      query: () => ({
+        url: `/getRevenue`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -37,4 +43,5 @@ export const {
   useCreateCheckoutSessionMutation,
   useGetCourseDetailWithStatusQuery,
   useGetPurchasedCoursesQuery,
+  useGetRevenueQuery,
 } = purchaseApi;
