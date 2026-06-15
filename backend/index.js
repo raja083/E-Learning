@@ -12,38 +12,51 @@ import courseProgressRoute from "./src/routes/courseProgressRoute.js";
 import { stripeWebhook } from "./src/controllers/purchaseController.js";
 import path from "path";
 
-connectDB();
 const app = express();
-//default middlewares
 const port = process.env.PORT || 4000;
+const _dirname = path.resolve();
+
+// CORS configuration
 app.use(
   cors({
     origin: "https://e-learning-kgkm.onrender.com",
     credentials: true,
   })
 );
-const _dirname = path.resolve();
+
+// Stripe webhook MUST come before express.json() so it can parse the raw body
 app.use(
   "/api/purchase/webhook",
   express.raw({ type: "application/json" }),
   stripeWebhook
 );
 
+// Default middlewares
 app.use(express.json());
 app.use(cookieParser());
 
-//apis
-app.use("/api/user", userRoute); //if user hits /api/user redirect him to userRoute
+// API Routes
+app.use("/api/user", userRoute);
 app.use("/api/course", courseRoute);
-app.use("/api/media", mediaRoute); //route to upload video on cloudinary
+app.use("/api/media", mediaRoute);
 app.use("/api/purchase", purchaseRoute);
 app.use("/api/progress", courseProgressRoute);
 
-//serve frontend files
+// Serve frontend files
 app.use(express.static(path.join(_dirname, "/frontend/dist")));
-app.get("/{*any}", (_, res) => {
+
+// Catch-all route to serve the React app
+app.get("*", (_, res) => {
   res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
 });
-app.listen(process.env.PORT, () => {
-  console.log(`Listening at port ${process.env.PORT}`);
-});
+
+// Establish database connection FIRST, then start the server
+connectDB()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Database connected successfully. Server listening at port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Database connection failed. Server not started.", err);
+  });
