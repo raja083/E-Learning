@@ -46,7 +46,7 @@ app.use("/api/progress", courseProgressRoute);
 app.use(express.static(path.join(_dirname, "/frontend/dist")));
 
 // Catch-all route to serve the React app
-app.get("*", (_, res) => {
+app.get("/{*any}", (_, res) => {
   res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
 });
 
